@@ -1,23 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { data } from './data';
+import TododList from './Components/TododList';
+import './App.css'
+import Add from './Components/Add';
 
 function App() {
-  return (
+  const [tasks, settasks] =useState(data)
+ const handleDelete=(x)=>settasks(tasks.filter(el=>x!=el.id!=x))
+ const handleComplete=(y)=>settasks(tasks.map(el=>el.id===y?{...el,isDone:!el.isDone}:el))
+  const handleAdd=(z)=>{
+    const newTask={
+      i:Math.random(),action:z,isDone:false
+    }
+    settasks([...tasks,newTasks])
+  }
+ return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Add add={handleAdd}/>
+       <TododList tasks={tasks}del={handleDelete}comp={handleComplete} />
     </div>
   );
 }
